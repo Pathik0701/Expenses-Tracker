@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class ConsoleMenu
 {
-    public void Expense(){
+    public void test(){
 
         try {
             System.out.println("the details of the expenses :");
