@@ -30,12 +30,6 @@ public class ExpenseDAOImpl implements ExpenseDAO
             int rowAffected = ps.executeUpdate();
             System.out.println("Rows affected" + rowAffected);
 
-            //process the result
-//            if (rowAffected == 0) {
-//                System.out.println("operation failed");
-//            } else {
-//                System.out.println("operation successfull\n");
-//            }
         }
         catch (SQLException e){
             e.printStackTrace();

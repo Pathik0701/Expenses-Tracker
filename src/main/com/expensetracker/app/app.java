@@ -9,6 +9,6 @@ public class app
      static void main(String[] args){
 
         ConsoleMenu menu = new ConsoleMenu();
-        menu.test();
+        menu.showMenu();
     }
 }
