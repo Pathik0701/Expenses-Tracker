@@ -4,6 +4,8 @@ import expensetracker.dao.ExpenseDAO;
 import expensetracker.dao.impl.ExpenseDAOImpl;
 import expensetracker.model.Expense;
 
+import java.util.*;
+
 public class ExpenseService
 {
     private ExpenseDAO dao = new ExpenseDAOImpl();
@@ -15,4 +17,9 @@ public class ExpenseService
             dao.addExpenses(expense);
         }
 
+    public List<Expense> getAllExpenses(){
+            return dao.getAllExpense();
+    }
 }
+
+

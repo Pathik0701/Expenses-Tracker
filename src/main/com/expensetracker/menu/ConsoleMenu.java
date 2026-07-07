@@ -1,11 +1,13 @@
 package expensetracker.menu;
 
+import expensetracker.dao.impl.ExpenseDAOImpl;
 import expensetracker.model.Expense;
 import expensetracker.service.ExpenseService;
 
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleMenu
@@ -29,10 +31,10 @@ public class ConsoleMenu
             String dateInput = sc.next();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date parseDate = format.parse(dateInput);
-            java.sql.Date expenses_date = new java.sql.Date(parseDate.getTime());
+            java.sql.Date expenseDate = new java.sql.Date(parseDate.getTime());
 
             System.out.println("description :");
-            String expenses_description = sc.next();
+            String description = sc.next();
 
             //expense object
             Expense expense = new Expense();
@@ -41,11 +43,17 @@ public class ConsoleMenu
             expense.setTitle(title);
             expense.setAmount(amount);
             expense.setCategory(category);
-            expense.setExpenses_date(expenses_date);
-            expense.setExpenses_description(expenses_description);
+            expense.setExpenses_Date(expenseDate);
+            expense.setExpenses_description(description);
 
             ExpenseService service = new ExpenseService();
             service.addExpenses(expense);
+
+            List<Expense> expenses = service.getAllExpenses();
+
+            for (Expense e : expenses){
+                System.out.println(e);
+            }
         }
         catch (ParseException e){
             e.printStackTrace();

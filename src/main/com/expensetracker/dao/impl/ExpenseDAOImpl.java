@@ -6,6 +6,8 @@ import expensetracker.model.Expense;
 
 import java.sql.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExpenseDAOImpl implements ExpenseDAO
 {
@@ -15,13 +17,13 @@ public class ExpenseDAOImpl implements ExpenseDAO
 
             Connection con = DBConnection.getConnection();
 
-            String sql = "INSERT INTO expenses(title, amount, category, expenses_date, expenses_description) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO expenses(title, amount, category, expenses_Date, expenses_description) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, expense.getTitle());
             ps.setDouble(2, expense.getAmount());
             ps.setString(3, expense.getCategory());
-            ps.setDate(4,(Date) expense.getExpenses_date());
+            ps.setDate(4,(Date) expense.getExpenses_Date());
             ps.setString(5, expense.getExpenses_description());
 
             int rowAffected = ps.executeUpdate();
@@ -31,8 +33,11 @@ public class ExpenseDAOImpl implements ExpenseDAO
             if (rowAffected == 0) {
                 System.out.println("operation failed");
             } else {
-                System.out.println("operation successfull");
+                System.out.println("operation successfull\n");
             }
+
+            con.close();
+            ps.close();
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -40,70 +45,47 @@ public class ExpenseDAOImpl implements ExpenseDAO
             throw new RuntimeException(e);
         }
     }
+
+    public List<Expense> getAllExpense(){
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            String sql1 = "SELECT * FROM expenses";
+            PreparedStatement ps = con.prepareStatement(sql1);
+            ResultSet rs = ps.executeQuery();
+
+            List<Expense> expenses = new ArrayList<>();
+
+            while(rs.next()){
+                Expense expense = new Expense();
+                String title = rs.getString("title");
+                Double amt = rs.getDouble("amount");
+                String category = rs.getString("category");
+                Date date = rs.getDate("expenses_Date");
+                String description = rs.getString("expenses_description");
+
+                expense.setTitle(title);
+                expense.setAmount(amt);
+                expense.setCategory(category);
+                expense.setExpenses_Date(date);
+                expense.setExpenses_description(description);
+
+                expenses.add(expense);
+            }
+
+            con.close();
+            ps.close();
+            rs.close();
+
+            return expenses;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//        try {
-//
-//            Connection con = DBConnection.getConnection();
-//
-//            String sql = "INSERT INTO expenses(id , title, amount, category, expenses_date, expenses_description) VALUES (?, ?, ?, ?, ?, ?)";
-//            PreparedStatement ps = con.prepareStatement(sql);
-//
-//            System.out.println("the detailes of the expenses :");
-//            Scanner sc = new Scanner(System.in);
-//
-//            System.out.println("title of the expenses :");
-//            String title = sc.next();
-//
-//            System.out.println("amount of the expenses :");
-//            Integer amount = sc.nextInt();
-//
-//            System.out.println("category :");
-//            String category = sc.next();
-//
-//            System.out.println("Date (yyyy-mm-dd) :");
-//            String dateInput = sc.next();
-//            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
-//            Date expenses_date = (Date) format.parse(dateInput);
-//
-//            System.out.println("description :");
-//            String expenses_description = sc.next();
-//
-//            ps.setString(2,title);
-//            ps.setInt(3,amount);
-//            ps.setString(4,category);
-//            ps.setDate(5, expenses_date);
-//            ps.setString(6,expenses_description);
-//
-//            int rowAffected = ps.executeUpdate();
-//
-//            //process the result
-//            if (rowAffected == 0) {
-//                System.out.println("operation failed");
-//            } else {
-//                System.out.println("operation successfull");
-//            }
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//            System.out.println("Inavild date format");
-//        }
-//

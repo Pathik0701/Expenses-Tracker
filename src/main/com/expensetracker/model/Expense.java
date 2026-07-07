@@ -7,8 +7,8 @@ public class Expense
     private String title;
     private Double amount;
     private String category;
-    private Date expenses_date;
-    private String expenses_description;
+    private Date expenseDate;
+    private String description;
 
     public String getTitle() {
         return title;
@@ -34,20 +34,30 @@ public class Expense
         this.category = category;
     }
 
-    public Date getExpenses_date() {
-        return expenses_date;
+    public Date getExpenses_Date() {
+        return expenseDate;
     }
 
-    public void setExpenses_date(Date expenses_date) {
-        this.expenses_date = expenses_date;
+    public void setExpenses_Date(Date expenseDate) {
+        this.expenseDate = expenseDate;
     }
 
     public String getExpenses_description() {
-        return expenses_description;
+        return description;
     }
 
-    public void setExpenses_description(String expenses_description) {
-        this.expenses_description = expenses_description;
+    public void setExpenses_description(String description) {
+        this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "Expense{" +
+                "title='" + title + '\'' +
+                ", amount=" + amount +
+                ", category='" + category + '\'' +
+                ", expenseDate=" + expenseDate +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
