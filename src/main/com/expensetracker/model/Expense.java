@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Expense
 {
+    private int id;
     private String title;
     private Double amount;
     private String category;

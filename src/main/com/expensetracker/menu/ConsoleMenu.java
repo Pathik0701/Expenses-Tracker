@@ -48,6 +48,7 @@ public class ConsoleMenu
 
             ExpenseService service = new ExpenseService();
             service.addExpenses(expense);
+            System.out.println("Expenses added succesfully");
 
             List<Expense> expenses = service.getAllExpenses();
 
