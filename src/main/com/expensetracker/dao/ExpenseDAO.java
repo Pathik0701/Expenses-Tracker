@@ -9,4 +9,7 @@ public interface ExpenseDAO
     void addExpenses(Expense expense);
 
     List<Expense> getAllExpense();
+
+    Expense getExpenseById(int id);
+
 }

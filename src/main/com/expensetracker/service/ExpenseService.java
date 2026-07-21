@@ -20,6 +20,10 @@ public class ExpenseService
     public List<Expense> getAllExpenses(){
             return dao.getAllExpense();
     }
+
+    public Expense getExpenseById(int id){
+           return dao.getExpenseById(id);
+    }
 }
 
 

@@ -11,6 +11,10 @@ public class Expense
     private Date expenseDate;
     private String description;
 
+    public Integer getId(){ return id; }
+
+    public void setId(Integer id){ this.id = id; }
+
     public String getTitle() {
         return title;
     }
@@ -53,12 +57,13 @@ public class Expense
 
     @Override
     public String toString() {
-        return "Expense{" +
-                "title='" + title + '\'' +
-                ", amount=" + amount +
-                ", category='" + category + '\'' +
-                ", expenseDate=" + expenseDate +
-                ", description='" + description + '\'' +
-                '}';
+        return "--------------------------------------\n" +
+                "ID                : " + id + "\n" +
+                "Title             : " + title + "\n" +
+                "Amount            : " + amount + "\n" +
+                "Category          : " + category + "\n" +
+                "Date              : " + expenseDate + "\n" +
+                "Description       : " + description + "\n" +
+                "--------------------------------------";
     }
 }

@@ -50,6 +50,7 @@ public class ExpenseDAOImpl implements ExpenseDAO
             while(rs.next()){
                 Expense expense = new Expense();
 
+                expense.setId((rs.getInt("id")));
                 expense.setTitle(rs.getString("title"));
                 expense.setAmount(rs.getDouble("amount"));
                 expense.setCategory(rs.getString("category"));
@@ -68,4 +69,41 @@ public class ExpenseDAOImpl implements ExpenseDAO
         return expenses;
     }
 
+
+
+    public Expense getExpenseById(int id) {
+
+        String sql= "SELECT * FROM expenses WHERE id=?";
+        try(
+                Connection con = DBConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ){
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            if(rs.next()){
+
+                Expense expense = new Expense();
+
+                expense.setId((rs.getInt("id")));
+                expense.setTitle(rs.getString("title"));
+                expense.setAmount(rs.getDouble("amount"));
+                expense.setCategory(rs.getString("category"));
+                expense.setExpenses_Date(rs.getDate("expenses_Date"));
+                expense.setExpenses_description(rs.getString("expenses_description"));
+
+                return expense;
+            }
+            else {
+                return null;
+            }
+
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
